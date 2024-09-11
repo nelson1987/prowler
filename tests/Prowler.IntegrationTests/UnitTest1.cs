@@ -1,14 +1,22 @@
+using AutoFixture;
+using AutoFixture.AutoMoq;
+using Moq;
+using FluentAssertions;
 namespace Prowler.IntegrationTests;
 
 public class UnitTest1
 {
+    private readonly IFixture _fixture = new Fixture().Customize(new AutoMoqCustomization { ConfigureMembers = true });
     [Fact]
     public void TestSetupGet()
     {
-        var transferenciaMock = new Mock<Transferencia>();
-        transferenciaMock.SetupGet(x => x.Idade).Returns(1);
+        _fixture.Freeze<Mock<Transferencia>>()
+                .Setup(x => x.AlteraIdade(1))
+                .Verifiable();
+        // var transferenciaMock = new Mock<Transferencia>();
+        // transferenciaMock.Object.AlteraIdade(It.IsAny<int>());
         
-        var movimentacao = new Movimentacao(transferenciaMock.Object);
+        var movimentacao = _fixture.Create<Movimentacao>();
         
         movimentacao.Transferencia.Idade.Should().Be(1);
     }
@@ -16,6 +24,10 @@ public class UnitTest1
 public class Transferencia
 {
     public int Idade {get; private set;}   
+    public void AlteraIdade(int idade)
+    {
+        Idade = idade;
+    }
 }
 public class Movimentacao
 {
@@ -34,16 +46,16 @@ public record ReceptCreatecommand(Recept Recept);
             throw new NotImplementedException();
         }
     };
-public class Handler
-{
-    private readonly IService _service;
-    private readonly IProducer _producer;
-    public async Task<Response> Handle(ReceptCreatecommand request, CancellationToken cancellation)
-    {
-        request.Recept = _service.Calculate(request.Recept);
-        var  receptCreateCommand = request.Recept.ToCommand();
-        await _service.Validate(receptCreateCommand, cancellation);
-        await _producer.Produce(receptCreateCommand, cancellation);
-        return receptCreateCommand.Recept.Id;
-    }
-}
+// public class Handler
+// {
+//     private readonly IService _service;
+//     private readonly IProducer _producer;
+//     public async Task<Response> Handle(ReceptCreatecommand request, CancellationToken cancellation)
+//     {
+//         request.Recept = _service.Calculate(request.Recept);
+//         var  receptCreateCommand = request.Recept.ToCommand();
+//         await _service.Validate(receptCreateCommand, cancellation);
+//         await _producer.Produce(receptCreateCommand, cancellation);
+//         return receptCreateCommand.Recept.Id;
+//     }
+// }
