@@ -11,3 +11,4 @@ dotnet new xunit -n Prowler.IntegrationTests
 git status
 git add .
 git commit -m "Commit inicial"
+git push
