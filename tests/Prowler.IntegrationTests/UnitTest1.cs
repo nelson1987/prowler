@@ -3,11 +3,29 @@ namespace Prowler.IntegrationTests;
 public class UnitTest1
 {
     [Fact]
-    public void Test1()
+    public void TestSetupGet()
     {
-
+        var transferenciaMock = new Mock<Transferencia>();
+        transferenciaMock.SetupGet(x => x.Idade).Returns(1);
+        
+        var movimentacao = new Movimentacao(transferenciaMock.Object);
+        
+        movimentacao.Transferencia.Idade.Should().Be(1);
     }
 }
+public class Transferencia
+{
+    public int Idade {get; private set;}   
+}
+public class Movimentacao
+{
+    public Movimentacao(Transferencia transferencia)
+    {
+        Transferencia = transferencia;
+    }
+    public Transferencia Transferencia {get; private set;}   
+}
+
 public record ReceptCreatecommand(Recept Recept);
     public record Recept(int Id)
     {
