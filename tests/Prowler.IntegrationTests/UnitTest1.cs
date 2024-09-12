@@ -6,6 +6,12 @@ namespace Prowler.IntegrationTests;
 
 public class UnitTest1
 {
+// criar uma lista com mock sem a propriedade de data.
+// realizar a alteração que dirá que os 2 valores de data, serão a maior data entre eles.
+// realizar o assert entre os 2 elementos excluindo a data
+// verificar se as 2 datas são iguais a maior data
+
+
     private readonly IFixture _fixture = new Fixture().Customize(new AutoMoqCustomization { ConfigureMembers = true });
     [Fact]
     public void TestSetupGet()
