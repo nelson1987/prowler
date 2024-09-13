@@ -14,6 +14,8 @@ public class UnitTest1
 
     private readonly IFixture _fixture = new Fixture().Customize(new AutoMoqCustomization { ConfigureMembers = true });
     [Fact]
+[Trait("Category","Unit Test"]
+[DisplayName("Validar Lista de Entidade")]
     public void TestSetupGet()
     {
         _fixture.Freeze<Mock<Transferencia>>()
