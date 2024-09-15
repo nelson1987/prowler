@@ -1,0 +1,14 @@
+<p>lista-pessoa works!</p>
+
+<!-- <input type="text" [(ngModel)]="nome" />
+  -->
+  <input [(ngModel)]="nome"/>
+<p>{{nome}}</p>
+
+<ul>
+@for (pessoa of pessoas; track pessoa) {
+    <li>{{ pessoa }}</li>
+    } @empty {
+    <li>There are no items.</li>
+    }
+</ul>
