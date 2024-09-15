@@ -17,6 +17,9 @@ git push
 ```
 ```sh
 git rebase -i HEAD~3
-#(lembrar de deixar dar squash em 1 de 2, 2 de 3, e assim por diante, deixando 1 deles como Pick, e alterando a mensagem em "lst commit message")
+#ATENÇÃO!! (lembrar de deixar dar squash em 1 de 2, 2 de 3, e assim por diante, deixando 1 deles como Pick, e alterando a mensagem em "lst commit message")
+#para cancelar o rebase
+git push --abort
+#Para confirmar alteração do Rebase
 git push --force-with-lease
 ```
