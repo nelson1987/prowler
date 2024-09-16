@@ -171,3 +171,14 @@ ng g s pessoa-service
 #CREATE src/app/pessoa-service.service.ts
 ng serve --port 4201
 ```
+
+## Criando Classe
+```sh
+cd src/app/lista-pessoa
+#Criaremos o componente de listagem de pessoas, nome: lista-pessoa
+ng g cl pessoa
+#O retorno será : 
+#CREATE src/app/pessoa.spec.ts
+#CREATE src/app/pessoa.ts
+ng serve --port 4201
+```
