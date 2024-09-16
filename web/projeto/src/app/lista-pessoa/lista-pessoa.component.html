@@ -7,7 +7,9 @@
 
 <ul>
 @for (pessoa of pessoas; track pessoa) {
-    <li>{{ pessoa }}</li>
+    <li>{{ pessoa.Nome }} | {{ pessoa.Idade }} 
+      <input type="text" id="Nome"	[(ngModel)]="pessoa.Nome" name="Nome" disabled/>
+    </li>
     } @empty {
     <li>There are no items.</li>
     }

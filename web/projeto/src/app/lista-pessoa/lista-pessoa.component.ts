@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+//Adicionar Serviço
+import { PessoaServiceService } from './pessoa-service.service';
+import { Pessoa } from '../pessoa';
 @Component({
   selector: 'app-lista-pessoa',
   standalone: true,
@@ -8,11 +11,11 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './lista-pessoa.component.css'
 })
 export class ListaPessoaComponent implements OnInit {
-  pessoas: string[] = ['João',	'Maria',	'Angular	2'];
+  pessoas: Pessoa[];
   nome:	string	=	"Thiago";
 
-constructor(){
-  
+constructor(private pessoaService: PessoaServiceService){
+  this.pessoas = pessoaService.getPessoas();
 }
 ngOnInit(): void {
   
