@@ -58,10 +58,11 @@ Vamos criar um CRUD
 O Angular tem como premissa a ordem abaixo:
 | Tipo | Comando | Descrição |
 | ------ | ------ | ------ |
+| Módulo | ng g m [nome_modulo] | |
 | Componente | ng g	c [nome_componente] | Um componente é uma classe responsável por controlar a view. Nela definimos a lógica que será aplicada para controle e ações da view |
 | Serviços | ng	g s [nome_servico] | |
 | Classe | ng g	cl [nome_classe] | |
-| Interface | ng g i [nome_interface] ||
+| Interface | ng g i [nome_interface] | |
 
 ### Componentes
 Então devemos sempre começar pelo componente, caso ele não exista
@@ -181,4 +182,12 @@ ng g cl pessoa
 #CREATE src/app/pessoa.spec.ts
 #CREATE src/app/pessoa.ts
 ng serve --port 4201
+```
+
+## Criando Rota sem módulos
+```js
+            {
+                path: 'teste',
+                component: TesteComponent
+            },
 ```
