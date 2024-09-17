@@ -2,13 +2,13 @@
 
 <!-- <input type="text" [(ngModel)]="nome" />
   -->
-  <input [(ngModel)]="nome"/>
+  <input name="nome_" [(ngModel)]="nome"/>
 <p>{{nome}}</p>
 
 <ul>
 @for (pessoa of pessoas; track pessoa) {
     <li>{{ pessoa.Nome }} | {{ pessoa.Idade }} 
-      <input type="text" id="Nome"	[(ngModel)]="pessoa.Nome" name="Nome" disabled/>
+      <input type="text" id="{{pessoa.Idade}}" [(ngModel)]="pessoa.Nome" name="Nome" disabled/>
     </li>
     } @empty {
     <li>There are no items.</li>
