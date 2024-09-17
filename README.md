@@ -1,5 +1,39 @@
 # prowler
 teste de ambiente angular
+## NVM
+```sh
+## Instalar NVM
+sudo apt-get update
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+### Listar versões do Node
+nvm ls 
+### Versão do Node para essa aplicação
+nvm use 16
+### Instalar Node
+sudo apt-get install nodejs
+node -v
+### Instalar Node Package Manager
+sudo apt-get install npm
+npm -v 
+### Versão do Angular para essa aplicação
+npm install -g @angular/cli@1.7.3
+### Instalar Versão do Angular
+ng --version
+### Rodar a aplicação
+npm run start
+```
+
+### Docker
+```sh
+# Docker Start
+docker compose up --build --remove-orphans --force-recreate -d
+# Docker Stop
+docker compose down -v
+```
+
 ## Dotnet
 ```sh
 dotnet new .gitignore
@@ -39,6 +73,98 @@ git push --force-with-lease
 ```sh
 git branch -D [nome_branch]
 ```
+
+
+```sh
+
+sudo apt-get install git
+
+git config --global user.name "Fulano da Silva"
+git config --global user.email fulanodasilva.git@gmail.com
+
+git init
+
+git status
+
+git add filmes.txt
+
+git commit -m "Arquivo inicial de citacoes"
+
+git log
+ 
+#Enviando as alterações para o Azure
+git push origin master [branch de origem]
+ 
+#Clonar de repositorio
+git clone https://github.com/fulanodasilva/citacoes.git
+ 
+git add .gitignore
+ 
+#Commitar com nova mensagem e novos arquivos
+git commit -a -m "Inserindo titulo e diminuindo tamanho da pagina"
+ 
+#Visualização de log
+git log --oneline
+ 
+#Visualização de log com estatistica dos arquivos alterados
+git log --stat
+ 
+git diff
+git diff --staged
+git diff 222cccc..8877887
+ 
+#Deletar Arquivo
+git rm produtos.html 
+#Renomear Arquivo-> de - para
+git mv estilos.css principal.css 
+#Movendo Arquivo-> de - para
+git mv principal.js js/principal.js 
+#emover de Stage
+git reset -- index.html 
+#Retornar ao status inicial do ultimo commit
+git reset --hard 
+#Desfazer commit 6111116
+git revert --no-edit 6111116 
+#Sincronizando com repositório
+git pull master (Merge)
+git pull master --rebase (Rebase) 
+#Enviar os commits pro Git
+git push 
+#Listar branchs do Repo ( a branch com * é a branch utilizada)
+git branch
+#Listar branchs do Repo ( a branch com * é a branch utilizada)
+git branch -v (listara a branch + ultimo commit) 
+#Criando branch
+git branch [nome_da_branchq]
+git branch
+git branch -v 
+#Utilizando nova branch
+git checkout [nome_da_branchq] 
+#criando e utilizando nova branch
+git checkout -b [nome_da_branch]
+git branch
+git branch -v 
+#deletando branch
+git branch -d [nome_da_branch]
+git branch
+git branch -v 
+#Visualizando 3 últimos commits da branch
+git log -n 3 --oneline --decorate --parents 
+#Mesclando alterações-> oriundas da branch master
+git merge master -m "Mesclando com a branch design"
+git branch --no-merged 
+#Mesclando alterações com rebase-> oriundas da branch master
+git rebase design
+git branch --no-merged 
+#Log de git gráfico
+git log --graph 
+#baixar arquivos remotos da branch
+git fetch master
+git log 
+#Resolvendo Conflitos
+git mergetool
+```
+
 
 ## Angular
 ### Criar novo projeto
