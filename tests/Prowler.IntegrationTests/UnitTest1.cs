@@ -3,8 +3,28 @@ using AutoFixture.AutoMoq;
 using Moq;
 using FluentAssertions;
 namespace Prowler.IntegrationTests;
+public class MyContext : DbContext
+{
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<Transferencia>(e =>
+        {
+            e
+            .ToTable("TB_Transferencia")
+            .HasKey(k => k.Id);
 
-public class UnitTest1
+            e
+            .Property(p => p.Id)
+            .ValueGeneratedOnAdd();
+
+            // e
+            // .Property(p => p.Idade)
+            // .ValueGeneratedOnAdd();
+        });
+    }
+}
+public class TransferenciaUnitTest : BaseTest
 {
     // criar uma lista com mock sem a propriedade de data.
     // realizar a alteração que dirá que os 2 valores de data, serão a maior data entre eles.
@@ -16,24 +36,39 @@ public class UnitTest1
 
     [Trait("Category", "Unit Test")]
     [Fact(DisplayName = "Validar Lista de Entidade")]
-    public void TestSetupGet()
+    public async Task Fact_PostTransferencia()
     {
-        _fixture.Freeze<Mock<Transferencia>>()
-                .Setup(x => x.AlteraIdade(1))
-                .Verifiable();
+        var transferencia = new Transferencia(0, 18);
+        ctx.Set<Transferencia>().AddAsync(transferencia);
+        ctx.SaveChangesAsync();
+        
+        transferencia.Id.Should().Be(1);
+        
+        // _fixture.Freeze<Mock<Transferencia>>()
+        //         .Setup(x => x.AlteraIdade(1))
+        //         .Verifiable();
         // var transferenciaMock = new Mock<Transferencia>();
         // transferenciaMock.Object.AlteraIdade(It.IsAny<int>());
 
-        var movimentacao = _fixture.Create<Movimentacao>();
+        // var movimentacao = _fixture.Create<Movimentacao>();
 
-        movimentacao.Transferencia.Idade.Should().Be(1);
+        // movimentacao.Transferencia.Idade.Should().Be(1);
     }
 }
-public class Transferencia
+public class Entity
+{
+    public int Id { get; private set; }
+}
+public class Transferencia : Entity
 {
     public int Idade { get; private set; }
-    public void AlteraIdade(int idade)
+    public Transferencia()
     {
+        
+    }
+    public Transferencia(int id, int idade)
+    {
+        Id = id;
         Idade = idade;
     }
 }
@@ -67,3 +102,28 @@ public record Recept(int Id)
 //         return receptCreateCommand.Recept.Id;
 //     }
 // }
+public class BaseTest
+    {
+        protected MyContext ctx;
+        public BaseTest(MyContext ctx = null)
+        {
+            this.ctx = ctx ?? GetInMemoryDBContext();
+        }
+        protected MyContext GetInMemoryDBContext()
+        {
+            var serviceProvider = new ServiceCollection()
+                .AddEntityFrameworkInMemoryDatabase()
+                .BuildServiceProvider();
+
+            var builder = new DbContextOptionsBuilder<MyContext>();
+            var options = builder
+                .UseInMemoryDatabase("test")
+                .UseInternalServiceProvider(serviceProvider)
+                .Options;
+
+            MyContext dbContext = new MyContext(options);
+            dbContext.Database.EnsureDeleted();
+            dbContext.Database.EnsureCreated();
+            return dbContext;
+        }
+    }
